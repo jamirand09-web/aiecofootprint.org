@@ -78,6 +78,7 @@ const elements = {
   globalPrompts: document.getElementById('global-prompts'),
   globalWater: document.getElementById('global-water'),
   globalElectricity: document.getElementById('global-electricity'),
+  globalCarbon: document.getElementById('global-carbon'),
   
   // Sections
   annualImpactSection: document.getElementById('annual-impact-section')
@@ -86,6 +87,7 @@ const elements = {
 let globalPromptsTotal = 0;
 let globalWaterMlTotal = 0;
 let globalElectricityWhTotal = 0;
+let globalCarbonKgTotal = 0;
 let globalTokensTotal = 0;
 let hasSubmitted = false;
 let placeholderActive = true;
@@ -146,11 +148,17 @@ function computeMetrics() {
   elements.annualCarbonKg.textContent = formatNumber(annualCarbonKg, 2);
 }
 
+function updateSubmitButtonVisibility() {
+  const hasText = !placeholderActive && elements.promptInput.value.trim().length > 0;
+  elements.promptSubmit.classList.toggle('hidden', !hasText);
+}
+
 function clearPlaceholderText() {
   if (!placeholderActive) return;
   placeholderActive = false;
   elements.promptInput.value = '';
   elements.promptInput.classList.remove('placeholder-active');
+  updateSubmitButtonVisibility();
 }
 
 function handlePromptSubmit(event) {
@@ -169,6 +177,7 @@ function handlePromptSubmit(event) {
 
   hasSubmitted = true;
   computeMetrics();
+  elements.annualImpactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function updateGlobalDebtClock() {
@@ -178,10 +187,12 @@ function updateGlobalDebtClock() {
   globalTokensTotal += tokenCount;
   globalWaterMlTotal += tokenCount * W_BASE;
   globalElectricityWhTotal += tokenCount * E_BASE;
+  globalCarbonKgTotal += tokenCount * C_BASE / 1000;
 
   elements.globalPrompts.textContent = Math.floor(globalPromptsTotal).toLocaleString('en-US');
-  elements.globalWater.textContent = formatNumber(globalWaterMlTotal / 1000, 2);
   elements.globalElectricity.textContent = formatNumber(globalElectricityWhTotal / 1000, 2);
+  elements.globalWater.textContent = formatNumber(globalWaterMlTotal / 1000, 2);
+  elements.globalCarbon.textContent = formatNumber(globalCarbonKgTotal, 2);
 }
 
 function initializeGlobalDebtClock() {
@@ -194,6 +205,7 @@ function initializeGlobalDebtClock() {
   globalTokensTotal = globalPromptsTotal * GLOBAL_TOKENS_PER_PROMPT;
   globalWaterMlTotal = globalTokensTotal * W_BASE;
   globalElectricityWhTotal = globalTokensTotal * E_BASE;
+  globalCarbonKgTotal = globalTokensTotal * C_BASE / 1000;
   
   // Display initial values
   updateGlobalDebtClock();
@@ -203,7 +215,9 @@ function attachListeners() {
   elements.promptInput.addEventListener('focus', clearPlaceholderText);
   elements.promptInput.addEventListener('click', clearPlaceholderText);
   elements.promptInput.addEventListener('input', () => {
-    if (!placeholderActive) computeMetrics();
+    if (placeholderActive) return;
+    updateSubmitButtonVisibility();
+    computeMetrics();
   });
 
   elements.promptInput.addEventListener('keydown', (event) => {
@@ -231,6 +245,7 @@ function attachListeners() {
 function init() {
   updateRegionDescription(elements.regionSelect.value);
   attachListeners();
+  updateSubmitButtonVisibility();
   
   // Initialize and start global debt clock
   initializeGlobalDebtClock();

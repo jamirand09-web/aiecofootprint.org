@@ -125,11 +125,36 @@ textarea.placeholder-active {
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 10px 22px rgba(61, 48, 40, 0.18);
+  opacity: 1;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.prompt-submit-button.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.9);
 }
 
 .prompt-submit-button:hover,
 .prompt-submit-button:focus {
   background: #342b21;
+}
+
+.impact-cards-primary .impact-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(245, 241, 235, 0.98) 100%);
+  border: 1px solid rgba(61, 48, 40, 0.14);
+  box-shadow: 0 16px 28px rgba(61, 48, 40, 0.10);
+}
+
+.impact-cards-secondary .impact-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(61, 48, 40, 0.08);
+  box-shadow: 0 8px 18px rgba(61, 48, 40, 0.06);
+  opacity: 0.96;
+}
+
+.impact-cards-secondary {
+  opacity: 0.96;
 }
 
 textarea:focus {

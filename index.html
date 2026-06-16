@@ -72,9 +72,8 @@
               id="prompt-input"
               rows="6"
               placeholder="For example: Write a 500-word essay on the ecological footprint of global data center server farms."
-              class="placeholder-active"
-              aria-describedby="token-indicator">For example: Write a 500-word essay on the ecological footprint of global data center server farms.</textarea>
-            <button type="submit" id="prompt-submit" class="prompt-submit-button" aria-label="Submit prompt">→</button>
+              aria-describedby="token-indicator"></textarea>
+            <button type="submit" id="prompt-submit" class="prompt-submit-button hidden" aria-label="Submit prompt">→</button>
           </div>
           <p class="hero-note">Type or paste a prompt, then press Enter or click the arrow to see its direct compute impact.</p>
           <p id="token-indicator" class="token-indicator">Estimated Compute Weight: <strong id="token-count">0</strong> tokens</p>
@@ -107,29 +106,47 @@
 
     <section class="micro-impact-section" id="micro-impact-section" aria-labelledby="micro-impact-title">
       <h2 id="micro-impact-title" class="section-title">This Prompt’s Impact</h2>
-      <p class="section-note">The direct electricity, water, and carbon weight of the prompt you just entered.</p>
-      <article class="info-card">
-        <dl class="metrics-grid">
-          <div>
-            <dt>Electricity</dt>
-            <dd><span id="electricity-wh">0.00</span> Wh</dd>
+      <p class="section-note">The immediate electricity, water, and carbon weight of this prompt.</p>
+      <div class="impact-cards impact-cards-primary">
+        <article class="impact-card">
+          <div class="card-header">
+            <span class="card-emoji">⚡</span>
+            <h3>Electricity</h3>
           </div>
-          <div>
-            <dt>Water</dt>
-            <dd><span id="water-ml">0.00</span> mL</dd>
+          <div class="card-value">
+            <strong id="electricity-wh">0.00</strong>
+            <span class="card-unit">Wh</span>
           </div>
-          <div>
-            <dt>Carbon</dt>
-            <dd><span id="carbon-g">0.00</span> g CO₂e</dd>
+        </article>
+
+        <article class="impact-card">
+          <div class="card-header">
+            <span class="card-emoji">💧</span>
+            <h3>Water</h3>
           </div>
-        </dl>
-      </article>
+          <div class="card-value">
+            <strong id="water-ml">0.00</strong>
+            <span class="card-unit">mL</span>
+          </div>
+        </article>
+
+        <article class="impact-card">
+          <div class="card-header">
+            <span class="card-emoji">🚗</span>
+            <h3>Carbon</h3>
+          </div>
+          <div class="card-value">
+            <strong id="carbon-g">0.00</strong>
+            <span class="card-unit">g CO₂e</span>
+          </div>
+        </article>
+      </div>
     </section>
 
     <section class="annual-impact-section" id="annual-impact-section" aria-labelledby="annual-impact-title">
       <h2 id="annual-impact-title" class="section-title">Projected Annual Impact</h2>
       <p class="section-note">If you repeat this prompt every day, this is how the impact scales over one year.</p>
-      <div class="impact-cards">
+      <div class="impact-cards impact-cards-secondary">
         <article class="impact-card">
           <div class="card-header">
             <span class="card-emoji">⚡</span>
@@ -178,14 +195,19 @@
             <strong id="global-prompts">0</strong>
           </article>
           <article class="debt-card">
+            <p class="debt-label">Grid Electricity Drawn</p>
+            <strong id="global-electricity">0.00</strong>
+            <span class="debt-unit">kWh</span>
+          </article>
+          <article class="debt-card">
             <p class="debt-label">Water Evaporated</p>
             <strong id="global-water">0.00</strong>
             <span class="debt-unit">liters</span>
           </article>
           <article class="debt-card">
-            <p class="debt-label">Grid Electricity Drawn</p>
-            <strong id="global-electricity">0.00</strong>
-            <span class="debt-unit">kWh</span>
+            <p class="debt-label">Carbon Emitted</p>
+            <strong id="global-carbon">0.00</strong>
+            <span class="debt-unit">kg CO₂e</span>
           </article>
         </div>
       </section>
@@ -230,8 +252,8 @@
               <tr>
                 <th>Region</th>
                 <th>Electricity Multiplier</th>
-                <th>Carbon Multiplier</th>
                 <th>Water Multiplier</th>
+                <th>Carbon Multiplier</th>
               </tr>
             </thead>
             <tbody>
@@ -244,26 +266,26 @@
               <tr>
                 <td>US East (Northern Virginia)</td>
                 <td>1.25x</td>
-                <td>1.25x</td>
                 <td>1.20x</td>
+                <td>1.25x</td>
               </tr>
               <tr>
                 <td>US West (Oregon)</td>
                 <td>0.50x</td>
-                <td>0.50x</td>
                 <td>0.80x</td>
+                <td>0.50x</td>
               </tr>
               <tr>
                 <td>Europe (France)</td>
                 <td>0.15x</td>
-                <td>0.15x</td>
                 <td>1.10x</td>
+                <td>0.15x</td>
               </tr>
               <tr>
                 <td>Europe (Ireland)</td>
                 <td>0.85x</td>
-                <td>0.85x</td>
                 <td>0.90x</td>
+                <td>0.85x</td>
               </tr>
             </tbody>
           </table>
