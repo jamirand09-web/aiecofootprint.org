@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Sustainability Calculator | The Environmental Weight of a Prompt</title>
+  <meta name="description" content="Track the hidden ecological footprint of generative AI. Visualize the real-time electricity, water, and carbon dioxide emissions of individual LLM chatbot prompts using a live global debt-clock dashboard.">
+  <meta name="keywords" content="AI sustainability, carbon footprint calculator, ChatGPT water consumption, green AI compute, data center emissions, environmental cost of AI, ai eco footprint">
+  <meta property="og:title" content="AI Sustainability Calculator | The Environmental Weight of a Prompt">
+  <meta property="og:description" content="Track the hidden ecological footprint of generative AI prompts in real-time.">
+  <meta property="og:url" content="https://www.aiecofootprint.org">
+  <meta property="og:site_name" content="AI Eco Footprint Calculator">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="/og-preview.png">
+  <link rel="stylesheet" href="styles.css">
+
+  <script type="module">
+  export const metadata = {
+    title: 'AI Sustainability Calculator | The Environmental Weight of a Prompt',
+    description: 'Track the hidden ecological footprint of generative AI. Visualize the real-time electricity, water, and carbon dioxide emissions of individual LLM chatbot prompts using a live global debt-clock dashboard.',
+    keywords: ['AI sustainability', 'carbon footprint calculator', 'ChatGPT water consumption', 'green AI compute', 'data center emissions', 'environmental cost of AI', 'ai eco footprint'],
+    openGraph: {
+      title: 'AI Sustainability Calculator | The Environmental Weight of a Prompt',
+      description: 'Track the hidden ecological footprint of generative AI prompts in real-time.',
+      url: 'https://www.aiecofootprint.org',
+      siteName: 'AI Eco Footprint Calculator',
+      type: 'website',
+      locale: 'en_US',
+      images: [{ url: '/og-preview.png', width: 1200, height: 630, alt: 'AI Sustainability Calculator Live Dashboard Preview.' }],
+    }
+  };
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "AI Sustainability Calculator",
+    "url": "https://www.aiecofootprint.org",
+    "description": "An interactive digital debt clock translating generative AI prompt lengths into real-time water, carbon, and electrical consumption values.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires HTML5 JavaScript support",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Real-time global prompt accumulation counter",
+      "Dynamic token length compute calculation engine",
+      "Regional grid carbon intensity adjustments",
+      "Human-scale environmental resource impact comparisons"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="page-header">
+      <span class="site-badge">Configured for Worldwide Access (Metrics Standardized to Metric & Imperial Analogies)</span>
+      <h1>AI Sustainability Calculator</h1>
+      <p class="hero-copy">Convert invisible generative AI compute into visible electricity, water, and carbon metrics that people can understand.</p>
+    </header>
+
+    <section class="global-debt" aria-labelledby="global-debt-title">
+      <div class="section-header"><h2 id="global-debt-title">Macro Debt Clock</h2></div>
+      <div class="debt-grid" role="status" aria-live="polite">
+        <article class="debt-card">
+          <p class="debt-label">Global Prompts Generated</p>
+          <strong id="global-prompts">0</strong>
+        </article>
+        <article class="debt-card">
+          <p class="debt-label">Water Evaporated</p>
+          <strong id="global-water">0.00</strong>
+          <span>liters</span>
+        </article>
+        <article class="debt-card">
+          <p class="debt-label">Grid Electricity Drawn</p>
+          <strong id="global-electricity">0.00</strong>
+          <span>kWh</span>
+        </article>
+      </div>
+    </section>
+
+    <main class="workspace" id="workspace">
+      <form class="controls" id="impact-form">
+        <div class="field-group">
+          <label for="prompt-input">Prompt canvas</label>
+          <textarea id="prompt-input" rows="10" aria-describedby="token-indicator">Write a 500-word essay on the ecological footprint of global data center server farms.</textarea>
+          <p id="token-indicator" class="field-note">Estimated Compute Weight: <strong id="token-count">0</strong> tokens</p>
+        </div>
+
+        <div class="field-group">
+          <label for="region-select">Compute region profile</label>
+          <select id="region-select" aria-describedby="region-description">
+            <option value="global" selected>Global Grid Average</option>
+            <option value="us-east">US East (Northern Virginia)</option>
+            <option value="us-west">US West (Oregon)</option>
+            <option value="eu-france">Europe (France)</option>
+            <option value="eu-ireland">Europe (Ireland)</option>
+          </select>
+          <p id="region-description" class="field-note">Global standard operational baseline.</p>
+        </div>
+
+        <div class="field-group range-group">
+          <label for="daily-volume">Daily prompt volume</label>
+          <div class="range-body">
+            <input type="range" id="daily-volume" min="1" max="50" value="5" aria-valuemin="1" aria-valuemax="50" aria-valuenow="5">
+            <output id="volume-value">5</output> prompts/day
+          </div>
+        </div>
+      </form>
+
+      <section class="dashboard" aria-label="Live sustainability metrics">
+        <article class="card">
+          <header><h2>Micro-Prompt Footprint</h2></header>
+          <dl class="impact-grid">
+            <div>
+              <dt>Electricity</dt>
+              <dd><span id="electricity-wh">0.00</span> Wh</dd>
+            </div>
+            <div>
+              <dt>Phone charge equivalent</dt>
+              <dd><span id="phone-minutes">0.00</span> min</dd>
+            </div>
+            <div>
+              <dt>Water used</dt>
+              <dd><span id="water-ml">0.00</span> mL</dd>
+            </div>
+            <div>
+              <dt>Water drops</dt>
+              <dd><span id="water-drops">0.00</span> drops</dd>
+            </div>
+            <div>
+              <dt>Carbon emitted</dt>
+              <dd><span id="carbon-g">0.00</span> g CO₂e</dd>
+            </div>
+            <div>
+              <dt>Car travel equivalent</dt>
+              <dd><span id="car-meters">0.00</span> meters</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="card">
+          <header><h2>Projected Annual Weight</h2></header>
+          <dl class="impact-grid">
+            <div>
+              <dt>Electricity</dt>
+              <dd><span id="annual-electricity">0.00</span> kWh</dd>
+            </div>
+            <div>
+              <dt>Water</dt>
+              <dd><span id="annual-bottles">0.00</span> plastic 500mL bottles</dd>
+            </div>
+            <div>
+              <dt>Carbon</dt>
+              <dd><span id="annual-carbon">0.00</span> kg CO₂e</dd>
+            </div>
+          </dl>
+        </article>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <div class="reference-panel">
+        <h3>Peer-reviewed references</h3>
+        <ul>
+          <li><a href="https://www.epochai.org/research" target="_blank" rel="noopener noreferrer">Epoch AI Research</a> — Inference hardware scaling analyses.</li>
+          <li><a href="https://www.eecs.ucr.edu" target="_blank" rel="noopener noreferrer">UC Riverside</a> — Dr. Shaolei Ren's "Making AI Less Thirsty" study.</li>
+          <li><a href="https://www.iea.org" target="_blank" rel="noopener noreferrer">International Energy Agency (IEA)</a> — Grid carbon intensity frameworks.</li>
+        </ul>
+      </div>
+
+      <aside class="alert-banner" role="contentinfo">
+        <strong>Everything has a digital weight.</strong> Use fewer, more deliberate prompts and treat each computational request as a real environmental decision.
+      </aside>
+    </footer>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

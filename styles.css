@@ -1,0 +1,259 @@
+:root {
+  color-scheme: dark;
+  --bg: #08111d;
+  --surface: #102136;
+  --surface-strong: #16243a;
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #f5f8ff;
+  --muted: #94a3b8;
+  --accent: #60a5fa;
+  --accent-strong: #3b82f6;
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: radial-gradient(circle at top, rgba(96, 165, 250, 0.08), transparent 36%),
+              linear-gradient(180deg, #07111d 0%, #06101c 100%);
+  color: var(--text);
+}
+
+body {
+  line-height: 1.55;
+}
+
+.page-shell {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+.page-header {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.site-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  background: rgba(96, 165, 250, 0.12);
+  color: var(--accent);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  line-height: 1.03;
+}
+
+.hero-copy {
+  margin: 0;
+  max-width: 42rem;
+  color: var(--muted);
+}
+
+.global-debt {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: rgba(15, 27, 44, 0.8);
+}
+
+.section-header h2 {
+  margin: 0 0 1rem;
+  font-size: 1.15rem;
+  letter-spacing: 0.01em;
+}
+
+.debt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.debt-card {
+  padding: 1.25rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.debt-label {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.debt-card strong {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 0.15rem;
+}
+
+.workspace {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.controls,
+.dashboard {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.field-group {
+  display: grid;
+  gap: 0.75rem;
+}
+
+label {
+  font-weight: 600;
+}
+
+textarea,
+select,
+input[type="range"] {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  padding: 1rem;
+  font: inherit;
+}
+
+textarea {
+  min-height: 220px;
+  resize: vertical;
+}
+
+select {
+  appearance: none;
+}
+
+.field-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.range-group .range-body {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.range-body {
+  display: grid;
+  gap: 0.75rem;
+}
+
+output {
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.card {
+  padding: 1.5rem;
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  background: rgba(15, 27, 44, 0.9);
+}
+
+.card header h2 {
+  margin: 0 0 1rem;
+  font-size: 1.15rem;
+}
+
+.impact-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.impact-grid div {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.impact-grid dt {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.impact-grid dd {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.page-footer {
+  margin-top: 2rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.reference-panel {
+  padding: 1.5rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+}
+
+.reference-panel h3 {
+  margin-top: 0;
+}
+
+.reference-panel ul {
+  margin: 1rem 0 0;
+  padding-left: 1.25rem;
+  color: var(--muted);
+}
+
+.reference-panel a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.alert-banner {
+  padding: 1.25rem 1.5rem;
+  border-radius: 18px;
+  border: 1px solid rgba(248, 113, 113, 0.25);
+  background: rgba(248, 113, 113, 0.1);
+  color: #fee2e2;
+}
+
+.alert-banner strong {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+@media (max-width: 900px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .debt-grid {
+    grid-template-columns: 1fr;
+  }
+}
