@@ -69,15 +69,7 @@ const elements = {
   promptSedanMiles: document.getElementById('prompt-sedan-miles'),
   promptCarbonG: document.getElementById('prompt-carbon-g'),
   
-  // Annual impact (new emoji-based cards)
-  annualIphoneCharges: document.getElementById('annual-iphone-charges'),
-  annualElectricityKwh: document.getElementById('annual-electricity-kwh'),
-  annualWaterBottles: document.getElementById('annual-water-bottles'),
-  annualWaterLiters: document.getElementById('annual-water-liters'),
-  annualSedanMiles: document.getElementById('annual-sedan-miles'),
-  annualCarbonKg: document.getElementById('annual-carbon-kg'),
-  
-  // Annual impact (new emoji-based cards)
+  // Annual impact
   annualIphoneCharges: document.getElementById('annual-iphone-charges'),
   annualElectricityKwh: document.getElementById('annual-electricity-kwh'),
   annualWaterBottles: document.getElementById('annual-water-bottles'),
@@ -150,12 +142,12 @@ function computeMetrics() {
   const promptSedanMiles = promptCarbonG / SEDAN_CO2_PER_MILE;
 
   elements.tokenCount.textContent = estimatedTokens;
-  elements['prompt-iphone-charges']?.textContent = formatNumber(promptIphoneCharges, 2);
-  elements['prompt-electricity-wh']?.textContent = formatNumber(promptElectricityWh, 4);
-  elements['prompt-water-bottles']?.textContent = formatNumber(promptWaterBottles, 2);
-  elements['prompt-water-ml']?.textContent = formatNumber(promptWaterMl, 3);
-  elements['prompt-sedan-miles']?.textContent = formatNumber(promptSedanMiles, 2);
-  elements['prompt-carbon-g']?.textContent = formatNumber(promptCarbonG, 4);
+  elements.promptIphoneCharges.textContent = formatNumber(promptIphoneCharges, 2);
+  elements.promptElectricityWh.textContent = formatNumber(promptElectricityWh, 4);
+  elements.promptWaterBottles.textContent = formatNumber(promptWaterBottles, 2);
+  elements.promptWaterMl.textContent = formatNumber(promptWaterMl, 3);
+  elements.promptSedanMiles.textContent = formatNumber(promptSedanMiles, 2);
+  elements.promptCarbonG.textContent = formatNumber(promptCarbonG, 4);
 
   // Update annual impact display (emoji cards)
   elements.annualIphoneCharges.textContent = formatNumber(iPhoneCharges, 1);

@@ -15,11 +15,21 @@
   --border-color: rgba(189, 159, 128, 0.2);
   --shadow-soft: rgba(61, 48, 40, 0.08);
   
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Segoe Sans", "Segoe UI", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 html, body {
@@ -28,6 +38,8 @@ html, body {
   background: linear-gradient(135deg, #FBF8F3 0%, #F5F1EB 100%);
   color: var(--text-primary);
   line-height: 1.6;
+  font-family: inherit;
+  font-weight: 400;
 }
 
 body {
@@ -53,15 +65,17 @@ body {
 
 h1 {
   margin: 0;
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.1;
+  font-size: 2.75rem;
+  line-height: 1.05;
   color: var(--cocoa);
+  font-weight: 600;
 }
 
 .hero-subtitle {
   margin: 0;
   max-width: 50rem;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  line-height: 1.6;
   color: var(--text-secondary);
   font-weight: 400;
 }
@@ -83,7 +97,7 @@ h1 {
 
 .hero-label {
   display: block;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--cocoa);
 }
@@ -165,13 +179,13 @@ textarea:focus {
 
 .hero-note {
   margin: 0.5rem 0 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--text-secondary);
 }
 
 .token-indicator {
   margin: 0.5rem 0 0;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--text-secondary);
 }
 
@@ -221,7 +235,7 @@ select:focus {
 
 .setting-note {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
 }
 
@@ -282,15 +296,16 @@ output {
 }
 
 .section-title {
-  margin: 0 0 1.5rem;
-  font-size: 1.4rem;
+  margin: 0 0 1.25rem;
+  font-size: 1.75rem;
   color: var(--cocoa);
+  font-weight: 600;
 }
 
 .section-note {
   margin: 0 0 1rem;
   color: var(--text-secondary);
-  font-size: 0.96rem;
+  font-size: 1rem;
   max-width: 54rem;
 }
 
@@ -336,6 +351,7 @@ output {
   margin: 0;
   font-size: 1.1rem;
   color: var(--cocoa);
+  font-weight: 600;
 }
 
 .card-value {
@@ -345,8 +361,9 @@ output {
 }
 
 .card-value strong {
-  font-size: 2rem;
+  font-size: 1.75rem;
   color: var(--muted-blue);
+  font-weight: 700;
 }
 
 .card-unit {
@@ -357,7 +374,7 @@ output {
 
 .card-meta {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--text-secondary);
 }
 
@@ -395,7 +412,7 @@ output {
 
 .metrics-grid dd {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--cocoa);
 }
@@ -437,18 +454,19 @@ output {
 
 .debt-label {
   margin: 0 0 0.75rem;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--text-secondary);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .debt-card strong {
   display: block;
-  font-size: 1.6rem;
+  font-size: 1.75rem;
   color: var(--cocoa);
   margin-bottom: 0.25rem;
+  font-weight: 600;
 }
 
 .debt-unit {
