@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Sustainability Calculator | The Environmental Weight of a Prompt</title>
-  <meta name="description" content="Track the hidden ecological footprint of generative AI. Visualize the real-time electricity, water, and carbon dioxide emissions of individual LLM chatbot prompts using a live global debt-clock dashboard.">
-  <meta name="keywords" content="AI sustainability, carbon footprint calculator, ChatGPT water consumption, green AI compute, data center emissions, environmental cost of AI, ai eco footprint">
-  <meta property="og:title" content="AI Sustainability Calculator | The Environmental Weight of a Prompt">
-  <meta property="og:description" content="Track the hidden ecological footprint of generative AI prompts in real-time.">
+  <title>AI Prompt Environmental Calculator | See CO₂, Water & Energy Impact</title>
+  <meta name="description" content="Calculate the real environmental cost of any AI prompt. See electricity usage, water consumption, and CO₂ emissions instantly. Free, no account needed.">
+  <meta name="keywords" content="AI prompt calculator, carbon footprint calculator, AI environmental impact, ChatGPT energy cost, prompt CO₂ emissions, green AI, data center impact">
+  <meta property="og:title" content="AI Prompt Environmental Calculator | See Your Impact">
+  <meta property="og:description" content="Calculate the real environmental cost of any AI prompt. See instant electricity, water, and carbon impact.">
   <meta property="og:url" content="https://www.aiecofootprint.org">
-  <meta property="og:site_name" content="AI Eco Footprint Calculator">
+  <meta property="og:site_name" content="AI Eco Footprint">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_US">
   <meta property="og:image" content="/og-preview.png">
@@ -36,10 +36,10 @@
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "AI Sustainability Calculator",
+    "name": "AI Prompt Environmental Calculator",
     "url": "https://www.aiecofootprint.org",
-    "description": "An interactive digital debt clock translating generative AI prompt lengths into real-time water, carbon, and electrical consumption values.",
-    "applicationCategory": "EducationalApplication",
+    "description": "Calculate the real environmental cost of any AI prompt. See instant electricity usage, water consumption, and CO₂ emissions.",
+    "applicationCategory": "UtilityApplication",
     "operatingSystem": "All",
     "browserRequirements": "Requires HTML5 JavaScript support",
     "offers": {
@@ -48,10 +48,63 @@
       "priceCurrency": "USD"
     },
     "featureList": [
-      "Real-time global prompt accumulation counter",
-      "Dynamic token length compute calculation engine",
+      "Instant environmental cost calculation per prompt",
+      "Real-time electricity, water, and carbon metrics",
       "Regional grid carbon intensity adjustments",
-      "Human-scale environmental resource impact comparisons"
+      "Human-scale environmental equivalents",
+      "Annual impact projections",
+      "Global real-time AI resource context"
+    ],
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.aiecofootprint.org?prompt={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "AI Eco Footprint"
+    },
+    "inLanguage": "en-US"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does it cost to run one AI prompt?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The cost depends on prompt length and compute region. A typical prompt uses 0.001-0.01 Wh of electricity, 0.02-0.2 mL of water, and 0.001-0.01 g of CO₂. Use the calculator to see exact costs for your prompt."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is environmental impact calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We estimate token count from your prompt, then multiply by peer-reviewed baseline metrics: 0.00045 Wh electricity per token, 0.004 mL water per token, and 0.0002 g CO₂e per token. Regional multipliers adjust for local grid carbon intensity."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this based on my location?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, you select the compute region (US East, US West, Europe, etc.) in the settings. We then apply regional multipliers to reflect local grid composition and carbon intensity. The default is Global Grid Average."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the Global Real-Time Context clock?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It's a separate estimate of worldwide AI prompt resource use (~2.5 billion daily). It updates in real-time to show aggregate impact, independent of your prompt input. It's provided for context about the scale of global AI usage."
+        }
+      }
     ]
   }
   </script>
@@ -59,14 +112,14 @@
 <body>
   <div class="page-shell">
     <header class="page-header">
-      <h1>AI Sustainability Calculator</h1>
-      <p class="hero-subtitle">Convert invisible generative AI compute into visible electricity, water, and carbon metrics that people can understand.</p>
+      <h1>Calculate the Environmental Cost of Your AI Prompt</h1>
+      <p class="hero-subtitle">Enter any prompt. See instant electricity, water, and carbon impact. Understand the real cost of AI.</p>
     </header>
 
     <section class="hero-section" id="hero-section">
       <form id="impact-form" class="hero-form">
         <div class="hero-input-group">
-          <label for="prompt-input" class="hero-label">Enter your prompt</label>
+          <label for="prompt-input" class="hero-label">What's your prompt?</label>
           <div class="hero-textarea-wrapper">
             <textarea
               id="prompt-input"
@@ -75,13 +128,13 @@
               aria-describedby="token-indicator"></textarea>
             <button type="submit" id="prompt-submit" class="prompt-submit-button hidden" aria-label="Submit prompt">→</button>
           </div>
-          <p class="hero-note">Type or paste a prompt, then press Enter or click the arrow to see its direct compute impact.</p>
+          <p class="hero-note">Enter any AI prompt and instantly see its environmental impact.</p>
           <p id="token-indicator" class="token-indicator">Estimated Compute Weight: <strong id="token-count">0</strong> tokens</p>
         </div>
 
         <div class="settings-panel">
           <div class="settings-group">
-            <label for="region-select">Compute region</label>
+            <label for="region-select">Where is this processed?</label>
             <select id="region-select" aria-describedby="region-description">
               <option value="global" selected>Global Grid Average</option>
               <option value="us-east">US East (Northern Virginia)</option>
@@ -93,7 +146,7 @@
           </div>
 
           <div class="settings-group">
-            <label for="daily-volume">Daily prompts</label>
+            <label for="daily-volume">How often do you use AI?</label>
             <div class="slider-container">
               <input type="range" id="daily-volume" min="1" max="50" value="5" aria-valuemin="1" aria-valuemax="50" aria-valuenow="5">
               <output id="volume-value">5</output>
@@ -105,8 +158,8 @@
     </section>
 
     <section class="micro-impact-section" id="micro-impact-section" aria-labelledby="micro-impact-title">
-      <h2 id="micro-impact-title" class="section-title">This Prompt’s Impact</h2>
-      <p class="section-note">How this prompt translates into electricity, water, and carbon through real-world equivalents.</p>
+      <h2 id="micro-impact-title" class="section-title">Your Prompt's Cost</h2>
+      <p class="section-note">See how this prompt translates into electricity, water, and carbon through real-world equivalents.</p>
       <div class="impact-cards impact-cards-primary">
         <article class="impact-card">
           <div class="card-header">
@@ -147,8 +200,8 @@
     </section>
 
     <section class="annual-impact-section" id="annual-impact-section" aria-labelledby="annual-impact-title">
-      <h2 id="annual-impact-title" class="section-title">Projected Annual Impact</h2>
-      <p class="section-note">If you repeat this prompt every day, this is how the impact scales over one year.</p>
+      <h2 id="annual-impact-title" class="section-title">If You Use This Daily...</h2>
+      <p class="section-note">Here's how the impact scales over one year if you use this prompt every day.</p>
       <div class="impact-cards impact-cards-secondary">
         <article class="impact-card">
           <div class="card-header">
@@ -189,32 +242,6 @@
     </section>
 
     <footer class="page-footer">
-      <section class="debt-clock-section" aria-labelledby="debt-clock-title">
-        <h2 id="debt-clock-title">Global Real-Time Debt Clock</h2>
-        <p class="debt-subtitle">Assuming ~2.5 billion prompts generated daily worldwide</p>
-        <div class="debt-grid" role="status" aria-live="polite">
-          <article class="debt-card">
-            <p class="debt-label">Global Prompts Generated</p>
-            <strong id="global-prompts">0</strong>
-          </article>
-          <article class="debt-card">
-            <p class="debt-label">Grid Electricity Drawn</p>
-            <strong id="global-electricity">0.00</strong>
-            <span class="debt-unit">kWh</span>
-          </article>
-          <article class="debt-card">
-            <p class="debt-label">Water Evaporated</p>
-            <strong id="global-water">0.00</strong>
-            <span class="debt-unit">liters</span>
-          </article>
-          <article class="debt-card">
-            <p class="debt-label">Carbon Emitted</p>
-            <strong id="global-carbon">0.00</strong>
-            <span class="debt-unit">kg CO₂e</span>
-          </article>
-        </div>
-      </section>
-
       <section class="methodology-section" aria-labelledby="methodology-title">
         <h2 id="methodology-title">Methodology & References</h2>
         
@@ -326,6 +353,32 @@
 
         <div class="reference-note">
           <p><em>Metrics standardized to metric and imperial analogies for worldwide accessibility.</em></p>
+        </div>
+      </section>
+
+      <section class="debt-clock-section context-section" aria-labelledby="debt-clock-title">
+        <h3 id="debt-clock-title">Global Real-Time Context</h3>
+        <p class="debt-subtitle">For reference: ~2.5 billion AI prompts run daily worldwide. Here's the aggregate environmental cost in real-time — independent of the prompt you entered.</p>
+        <div class="debt-grid" role="status" aria-live="polite">
+          <article class="debt-card">
+            <p class="debt-label">Global Prompts Generated</p>
+            <strong id="global-prompts">0</strong>
+          </article>
+          <article class="debt-card">
+            <p class="debt-label">Grid Electricity Drawn</p>
+            <strong id="global-electricity">0.00</strong>
+            <span class="debt-unit">kWh</span>
+          </article>
+          <article class="debt-card">
+            <p class="debt-label">Water Evaporated</p>
+            <strong id="global-water">0.00</strong>
+            <span class="debt-unit">liters</span>
+          </article>
+          <article class="debt-card">
+            <p class="debt-label">Carbon Emitted</p>
+            <strong id="global-carbon">0.00</strong>
+            <span class="debt-unit">kg CO₂e</span>
+          </article>
         </div>
       </section>
     </footer>
