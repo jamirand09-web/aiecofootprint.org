@@ -15,7 +15,7 @@ Open `index.html` directly in the browser, or serve locally from the project fol
 Example with Python:
 
 ```bash
-cd /Users/juanmiranda/aiecofootprint
+cd ~/path/to/aiecofootprint
 python3 -m http.server 8000
 ```
 
