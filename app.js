@@ -1,11 +1,16 @@
 const E_BASE = 0.00045;
 const W_BASE = 0.004;
 const C_BASE = 0.0002;
-const M_PHONE = 44.1;
 const M_DROPS = 20.0;
 const M_BOTTLE = 500.0;
-const M_CAR = 2.3;
-const GLOBAL_PROMPTS_PER_SECOND = 1_000_000_000 / 86400;
+
+// New equivalency baselines
+const IPHONE_17_WH = 14.5;
+const SEDAN_CO2_PER_MILE = 200; // grams
+
+// Global baseline: 2.5 billion daily prompts
+const GLOBAL_PROMPTS_PER_DAY = 2_500_000_000;
+const GLOBAL_PROMPTS_PER_SECOND = GLOBAL_PROMPTS_PER_DAY / 86400;
 const GLOBAL_TOKENS_PER_PROMPT = 1.33;
 
 const regions = {
@@ -48,24 +53,34 @@ const elements = {
   dailyVolume: document.getElementById('daily-volume'),
   volumeValue: document.getElementById('volume-value'),
   tokenCount: document.getElementById('token-count'),
+  
+  // Micro impact
   electricityWh: document.getElementById('electricity-wh'),
-  phoneMinutes: document.getElementById('phone-minutes'),
   waterMl: document.getElementById('water-ml'),
-  waterDrops: document.getElementById('water-drops'),
   carbonG: document.getElementById('carbon-g'),
-  carMeters: document.getElementById('car-meters'),
-  annualElectricity: document.getElementById('annual-electricity'),
-  annualBottles: document.getElementById('annual-bottles'),
-  annualCarbon: document.getElementById('annual-carbon'),
+  
+  // Annual impact (new emoji-based cards)
+  annualIphoneCharges: document.getElementById('annual-iphone-charges'),
+  annualElectricityKwh: document.getElementById('annual-electricity-kwh'),
+  annualWaterBottles: document.getElementById('annual-water-bottles'),
+  annualWaterLiters: document.getElementById('annual-water-liters'),
+  annualSedanMiles: document.getElementById('annual-sedan-miles'),
+  annualCarbonKg: document.getElementById('annual-carbon-kg'),
+  
+  // Global debt clock
   globalPrompts: document.getElementById('global-prompts'),
   globalWater: document.getElementById('global-water'),
-  globalElectricity: document.getElementById('global-electricity')
+  globalElectricity: document.getElementById('global-electricity'),
+  
+  // Sections
+  annualImpactSection: document.getElementById('annual-impact-section')
 };
 
 let globalPromptsTotal = 0;
 let globalWaterMlTotal = 0;
 let globalElectricityWhTotal = 0;
 let globalTokensTotal = 0;
+let hasScrolledToImpact = false;
 
 function getWordCount(text) {
   return text.trim().split(/\s+/).filter(Boolean).length;
@@ -95,28 +110,44 @@ function computeMetrics() {
   const promptWaterMl = estimatedTokens * W_BASE * selectedRegion.waterMultiplier;
   const promptCarbonG = estimatedTokens * C_BASE * selectedRegion.carbonMultiplier;
 
-  const phoneMinutes = promptElectricityWh * M_PHONE;
-  const waterDrops = promptWaterMl * M_DROPS;
-  const carMeters = promptCarbonG * M_CAR;
+  // Annual calculations
+  const annualElectricityWh = promptElectricityWh * dailyVolume * 365;
+  const annualElectricityKwh = annualElectricityWh / 1000;
+  const annualWaterMl = promptWaterMl * dailyVolume * 365;
+  const annualWaterLiters = annualWaterMl / 1000;
+  const annualWaterBottles = annualWaterMl / M_BOTTLE;
+  const annualCarbonG = promptCarbonG * dailyVolume * 365;
+  const annualCarbonKg = annualCarbonG / 1000;
 
-  const annualElectricityKwh = (promptElectricityWh * dailyVolume * 365) / 1000;
-  const annualWaterBottles = (promptWaterMl * dailyVolume * 365) / M_BOTTLE;
-  const annualCarbonKg = (promptCarbonG * dailyVolume * 365) / 1000;
+  // New tangible metrics
+  const iPhoneCharges = annualElectricityWh / IPHONE_17_WH;
+  const sedanMiles = annualCarbonG / SEDAN_CO2_PER_MILE;
 
+  // Update micro impact display
   elements.tokenCount.textContent = estimatedTokens;
   elements.electricityWh.textContent = formatNumber(promptElectricityWh, 4);
-  elements.phoneMinutes.textContent = formatNumber(phoneMinutes, 2);
   elements.waterMl.textContent = formatNumber(promptWaterMl, 3);
-  elements.waterDrops.textContent = formatNumber(waterDrops, 1);
   elements.carbonG.textContent = formatNumber(promptCarbonG, 4);
-  elements.carMeters.textContent = formatNumber(carMeters, 2);
-  elements.annualElectricity.textContent = formatNumber(annualElectricityKwh, 2);
-  elements.annualBottles.textContent = formatNumber(annualWaterBottles, 2);
-  elements.annualCarbon.textContent = formatNumber(annualCarbonKg, 2);
+
+  // Update annual impact display (emoji cards)
+  elements.annualIphoneCharges.textContent = formatNumber(iPhoneCharges, 1);
+  elements.annualElectricityKwh.textContent = formatNumber(annualElectricityKwh, 2);
+  elements.annualWaterBottles.textContent = formatNumber(annualWaterBottles, 1);
+  elements.annualWaterLiters.textContent = formatNumber(annualWaterLiters, 2);
+  elements.annualSedanMiles.textContent = formatNumber(sedanMiles, 1);
+  elements.annualCarbonKg.textContent = formatNumber(annualCarbonKg, 2);
+
+  // Auto-scroll on first input (if not already scrolled)
+  if (!hasScrolledToImpact && text.trim().length > 0) {
+    hasScrolledToImpact = true;
+    setTimeout(() => {
+      elements.annualImpactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
 }
 
 function updateGlobalDebtClock() {
-  const promptsThisTick = GLOBAL_PROMPTS_PER_SECOND * 0.1;
+  const promptsThisTick = GLOBAL_PROMPTS_PER_SECOND * 0.1; // 100ms tick
   const tokenCount = promptsThisTick * GLOBAL_TOKENS_PER_PROMPT;
   globalPromptsTotal += promptsThisTick;
   globalTokensTotal += tokenCount;
@@ -126,6 +157,21 @@ function updateGlobalDebtClock() {
   elements.globalPrompts.textContent = Math.floor(globalPromptsTotal).toLocaleString('en-US');
   elements.globalWater.textContent = formatNumber(globalWaterMlTotal / 1000, 2);
   elements.globalElectricity.textContent = formatNumber(globalElectricityWhTotal / 1000, 2);
+}
+
+function initializeGlobalDebtClock() {
+  // Seed the debt clock based on current time of day
+  const now = new Date();
+  const secondsIntoDay = (now.getHours() * 3600) + (now.getMinutes() * 60) + now.getSeconds();
+  const fractionOfDayElapsed = secondsIntoDay / 86400;
+  
+  globalPromptsTotal = GLOBAL_PROMPTS_PER_DAY * fractionOfDayElapsed;
+  globalTokensTotal = globalPromptsTotal * GLOBAL_TOKENS_PER_PROMPT;
+  globalWaterMlTotal = globalTokensTotal * W_BASE;
+  globalElectricityWhTotal = globalTokensTotal * E_BASE;
+  
+  // Display initial values
+  updateGlobalDebtClock();
 }
 
 function attachListeners() {
@@ -146,7 +192,9 @@ function init() {
   updateRegionDescription(elements.regionSelect.value);
   attachListeners();
   computeMetrics();
-  updateGlobalDebtClock();
+  
+  // Initialize and start global debt clock
+  initializeGlobalDebtClock();
   setInterval(updateGlobalDebtClock, 100);
 }
 

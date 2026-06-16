@@ -59,124 +59,248 @@
 <body>
   <div class="page-shell">
     <header class="page-header">
-      <span class="site-badge">Configured for Worldwide Access (Metrics Standardized to Metric & Imperial Analogies)</span>
       <h1>AI Sustainability Calculator</h1>
-      <p class="hero-copy">Convert invisible generative AI compute into visible electricity, water, and carbon metrics that people can understand.</p>
+      <p class="hero-subtitle">Convert invisible generative AI compute into visible electricity, water, and carbon metrics that people can understand.</p>
     </header>
 
-    <section class="global-debt" aria-labelledby="global-debt-title">
-      <div class="section-header"><h2 id="global-debt-title">Macro Debt Clock</h2></div>
-      <div class="debt-grid" role="status" aria-live="polite">
-        <article class="debt-card">
-          <p class="debt-label">Global Prompts Generated</p>
-          <strong id="global-prompts">0</strong>
+    <section class="hero-section" id="hero-section">
+      <form id="impact-form" class="hero-form">
+        <div class="hero-input-group">
+          <label for="prompt-input" class="hero-label">Enter your prompt</label>
+          <textarea 
+            id="prompt-input" 
+            rows="6" 
+            placeholder="Write a 500-word essay on the ecological footprint of global data center server farms."
+            aria-describedby="token-indicator">Write a 500-word essay on the ecological footprint of global data center server farms.</textarea>
+          <p id="token-indicator" class="token-indicator">Estimated Compute Weight: <strong id="token-count">0</strong> tokens</p>
+        </div>
+
+        <div class="settings-panel">
+          <div class="settings-group">
+            <label for="region-select">Compute region</label>
+            <select id="region-select" aria-describedby="region-description">
+              <option value="global" selected>Global Grid Average</option>
+              <option value="us-east">US East (Northern Virginia)</option>
+              <option value="us-west">US West (Oregon)</option>
+              <option value="eu-france">Europe (France)</option>
+              <option value="eu-ireland">Europe (Ireland)</option>
+            </select>
+            <p id="region-description" class="setting-note">Global standard operational baseline.</p>
+          </div>
+
+          <div class="settings-group">
+            <label for="daily-volume">Daily prompts</label>
+            <div class="slider-container">
+              <input type="range" id="daily-volume" min="1" max="50" value="5" aria-valuemin="1" aria-valuemax="50" aria-valuenow="5">
+              <output id="volume-value">5</output>
+              <span class="slider-unit">/day</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="annual-impact-section" id="annual-impact-section" aria-labelledby="annual-impact-title">
+      <h2 id="annual-impact-title" class="section-title">Your Annual Carbon Weight</h2>
+      <div class="impact-cards">
+        <article class="impact-card">
+          <div class="card-header">
+            <span class="card-emoji">⚡</span>
+            <h3>Electricity</h3>
+          </div>
+          <div class="card-value">
+            <strong id="annual-iphone-charges">0.0</strong>
+            <span class="card-unit">iPhone 17 charges</span>
+          </div>
+          <p class="card-meta">(<span id="annual-electricity-kwh">0.00</span> kWh)</p>
         </article>
-        <article class="debt-card">
-          <p class="debt-label">Water Evaporated</p>
-          <strong id="global-water">0.00</strong>
-          <span>liters</span>
+
+        <article class="impact-card">
+          <div class="card-header">
+            <span class="card-emoji">💧</span>
+            <h3>Water</h3>
+          </div>
+          <div class="card-value">
+            <strong id="annual-water-bottles">0.0</strong>
+            <span class="card-unit">Water bottles (500mL)</span>
+          </div>
+          <p class="card-meta">(<span id="annual-water-liters">0.00</span> L)</p>
         </article>
-        <article class="debt-card">
-          <p class="debt-label">Grid Electricity Drawn</p>
-          <strong id="global-electricity">0.00</strong>
-          <span>kWh</span>
+
+        <article class="impact-card">
+          <div class="card-header">
+            <span class="card-emoji">🚗</span>
+            <h3>Carbon</h3>
+          </div>
+          <div class="card-value">
+            <strong id="annual-sedan-miles">0.0</strong>
+            <span class="card-unit">Miles driven (sedan)</span>
+          </div>
+          <p class="card-meta">(<span id="annual-carbon-kg">0.00</span> kg CO₂e)</p>
         </article>
       </div>
     </section>
 
-    <main class="workspace" id="workspace">
-      <form class="controls" id="impact-form">
-        <div class="field-group">
-          <label for="prompt-input">Prompt canvas</label>
-          <textarea id="prompt-input" rows="10" aria-describedby="token-indicator">Write a 500-word essay on the ecological footprint of global data center server farms.</textarea>
-          <p id="token-indicator" class="field-note">Estimated Compute Weight: <strong id="token-count">0</strong> tokens</p>
-        </div>
-
-        <div class="field-group">
-          <label for="region-select">Compute region profile</label>
-          <select id="region-select" aria-describedby="region-description">
-            <option value="global" selected>Global Grid Average</option>
-            <option value="us-east">US East (Northern Virginia)</option>
-            <option value="us-west">US West (Oregon)</option>
-            <option value="eu-france">Europe (France)</option>
-            <option value="eu-ireland">Europe (Ireland)</option>
-          </select>
-          <p id="region-description" class="field-note">Global standard operational baseline.</p>
-        </div>
-
-        <div class="field-group range-group">
-          <label for="daily-volume">Daily prompt volume</label>
-          <div class="range-body">
-            <input type="range" id="daily-volume" min="1" max="50" value="5" aria-valuemin="1" aria-valuemax="50" aria-valuenow="5">
-            <output id="volume-value">5</output> prompts/day
+    <section class="micro-impact-section" aria-labelledby="micro-impact-title">
+      <h2 id="micro-impact-title" class="section-title">Per-Prompt Impact</h2>
+      <article class="info-card">
+        <dl class="metrics-grid">
+          <div>
+            <dt>Electricity</dt>
+            <dd><span id="electricity-wh">0.00</span> Wh</dd>
           </div>
-        </div>
-      </form>
-
-      <section class="dashboard" aria-label="Live sustainability metrics">
-        <article class="card">
-          <header><h2>Micro-Prompt Footprint</h2></header>
-          <dl class="impact-grid">
-            <div>
-              <dt>Electricity</dt>
-              <dd><span id="electricity-wh">0.00</span> Wh</dd>
-            </div>
-            <div>
-              <dt>Phone charge equivalent</dt>
-              <dd><span id="phone-minutes">0.00</span> min</dd>
-            </div>
-            <div>
-              <dt>Water used</dt>
-              <dd><span id="water-ml">0.00</span> mL</dd>
-            </div>
-            <div>
-              <dt>Water drops</dt>
-              <dd><span id="water-drops">0.00</span> drops</dd>
-            </div>
-            <div>
-              <dt>Carbon emitted</dt>
-              <dd><span id="carbon-g">0.00</span> g CO₂e</dd>
-            </div>
-            <div>
-              <dt>Car travel equivalent</dt>
-              <dd><span id="car-meters">0.00</span> meters</dd>
-            </div>
-          </dl>
-        </article>
-
-        <article class="card">
-          <header><h2>Projected Annual Weight</h2></header>
-          <dl class="impact-grid">
-            <div>
-              <dt>Electricity</dt>
-              <dd><span id="annual-electricity">0.00</span> kWh</dd>
-            </div>
-            <div>
-              <dt>Water</dt>
-              <dd><span id="annual-bottles">0.00</span> plastic 500mL bottles</dd>
-            </div>
-            <div>
-              <dt>Carbon</dt>
-              <dd><span id="annual-carbon">0.00</span> kg CO₂e</dd>
-            </div>
-          </dl>
-        </article>
-      </section>
-    </main>
+          <div>
+            <dt>Water</dt>
+            <dd><span id="water-ml">0.00</span> mL</dd>
+          </div>
+          <div>
+            <dt>Carbon</dt>
+            <dd><span id="carbon-g">0.00</span> g CO₂e</dd>
+          </div>
+        </dl>
+      </article>
+    </section>
 
     <footer class="page-footer">
-      <div class="reference-panel">
-        <h3>Peer-reviewed references</h3>
-        <ul>
-          <li><a href="https://www.epochai.org/research" target="_blank" rel="noopener noreferrer">Epoch AI Research</a> — Inference hardware scaling analyses.</li>
-          <li><a href="https://www.eecs.ucr.edu" target="_blank" rel="noopener noreferrer">UC Riverside</a> — Dr. Shaolei Ren's "Making AI Less Thirsty" study.</li>
-          <li><a href="https://www.iea.org" target="_blank" rel="noopener noreferrer">International Energy Agency (IEA)</a> — Grid carbon intensity frameworks.</li>
-        </ul>
-      </div>
+      <section class="debt-clock-section" aria-labelledby="debt-clock-title">
+        <h2 id="debt-clock-title">Global Real-Time Debt Clock</h2>
+        <p class="debt-subtitle">Assuming ~2.5 billion prompts generated daily worldwide</p>
+        <div class="debt-grid" role="status" aria-live="polite">
+          <article class="debt-card">
+            <p class="debt-label">Global Prompts Generated</p>
+            <strong id="global-prompts">0</strong>
+          </article>
+          <article class="debt-card">
+            <p class="debt-label">Water Evaporated</p>
+            <strong id="global-water">0.00</strong>
+            <span class="debt-unit">liters</span>
+          </article>
+          <article class="debt-card">
+            <p class="debt-label">Grid Electricity Drawn</p>
+            <strong id="global-electricity">0.00</strong>
+            <span class="debt-unit">kWh</span>
+          </article>
+        </div>
+      </section>
 
-      <aside class="alert-banner" role="contentinfo">
-        <strong>Everything has a digital weight.</strong> Use fewer, more deliberate prompts and treat each computational request as a real environmental decision.
-      </aside>
+      <section class="methodology-section" aria-labelledby="methodology-title">
+        <h2 id="methodology-title">Methodology & References</h2>
+        
+        <div class="reference-subsection">
+          <h3>Environmental Baseline Constants</h3>
+          <table class="reference-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Value per Token</th>
+                <th>Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Electricity</td>
+                <td>0.00045 Wh</td>
+                <td>Epoch AI Research</td>
+              </tr>
+              <tr>
+                <td>Water</td>
+                <td>0.004 mL</td>
+                <td>Dr. Shaolei Ren, UC Riverside</td>
+              </tr>
+              <tr>
+                <td>Carbon</td>
+                <td>0.0002 g CO₂e</td>
+                <td>IEA Grid Carbon Intensity</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="reference-subsection">
+          <h3>Regional Grid Multipliers</h3>
+          <table class="reference-table">
+            <thead>
+              <tr>
+                <th>Region</th>
+                <th>Carbon Multiplier</th>
+                <th>Water Multiplier</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Global Grid Average</td>
+                <td>1.00x</td>
+                <td>1.00x</td>
+              </tr>
+              <tr>
+                <td>US East (Northern Virginia)</td>
+                <td>1.25x</td>
+                <td>1.20x</td>
+              </tr>
+              <tr>
+                <td>US West (Oregon)</td>
+                <td>0.50x</td>
+                <td>0.80x</td>
+              </tr>
+              <tr>
+                <td>Europe (France)</td>
+                <td>0.15x</td>
+                <td>1.10x</td>
+              </tr>
+              <tr>
+                <td>Europe (Ireland)</td>
+                <td>0.85x</td>
+                <td>0.90x</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="reference-subsection">
+          <h3>Human-Scale Equivalence Metrics</h3>
+          <table class="reference-table">
+            <thead>
+              <tr>
+                <th>Equivalence</th>
+                <th>Baseline</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>iPhone 17 Full Battery Charge</td>
+                <td>14.5 Wh</td>
+              </tr>
+              <tr>
+                <td>Standard Water Bottle Capacity</td>
+                <td>500 mL</td>
+              </tr>
+              <tr>
+                <td>Average Gasoline Sedan Emissions</td>
+                <td>~200 g CO₂e per mile</td>
+              </tr>
+              <tr>
+                <td>Global Daily AI Prompts (Baseline)</td>
+                <td>2.5 billion</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="reference-subsection">
+          <h3>Data Sources</h3>
+          <ul class="reference-list">
+            <li><a href="https://www.epochai.org/research" target="_blank" rel="noopener noreferrer">Epoch AI Research</a> — Inference hardware scaling analyses.</li>
+            <li><a href="https://www.eecs.ucr.edu" target="_blank" rel="noopener noreferrer">UC Riverside</a> — Dr. Shaolei Ren's "Making AI Less Thirsty" study.</li>
+            <li><a href="https://www.iea.org" target="_blank" rel="noopener noreferrer">International Energy Agency (IEA)</a> — Grid carbon intensity frameworks.</li>
+            <li><strong>Chatterji, A. (2025).</strong> How People Use ChatGPT. <em>National Bureau of Economic Research (NBER)</em>, Working Paper No. 34255.</li>
+            <li><strong>Liu, Y., & Wang, H. (2024).</strong> Who on Earth Is Using Generative AI? <em>World Bank Group</em>, Policy Research Working Paper No. 10870.</li>
+          </ul>
+        </div>
+
+        <div class="reference-note">
+          <p><em>Metrics standardized to metric and imperial analogies for worldwide accessibility.</em></p>
+        </div>
+      </section>
     </footer>
   </div>
 
