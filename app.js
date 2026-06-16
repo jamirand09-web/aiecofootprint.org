@@ -16,30 +16,35 @@ const GLOBAL_TOKENS_PER_PROMPT = 1.33;
 const regions = {
   global: {
     label: 'Global Grid Average',
+    electricityMultiplier: 1.0,
     carbonMultiplier: 1.0,
     waterMultiplier: 1.0,
     description: 'Global standard operational baseline.'
   },
   'us-east': {
     label: 'US East (Northern Virginia)',
+    electricityMultiplier: 1.25,
     carbonMultiplier: 1.25,
     waterMultiplier: 1.20,
     description: 'High data center density; fossil-fuel reliant infrastructure.'
   },
   'us-west': {
     label: 'US West (Oregon)',
+    electricityMultiplier: 0.50,
     carbonMultiplier: 0.50,
     waterMultiplier: 0.80,
     description: 'Optimized via renewable and hydro-intensive public grid mixes.'
   },
   'eu-france': {
     label: 'Europe (France)',
+    electricityMultiplier: 0.15,
     carbonMultiplier: 0.15,
     waterMultiplier: 1.10,
     description: 'Nuclear-dominant generation profiles yielding low direct carbon output.'
   },
   'eu-ireland': {
     label: 'Europe (Ireland)',
+    electricityMultiplier: 0.85,
     carbonMultiplier: 0.85,
     waterMultiplier: 0.90,
     description: 'Variable grid dynamically balancing wind fields with gas assets.'
@@ -47,7 +52,9 @@ const regions = {
 };
 
 const elements = {
+  impactForm: document.getElementById('impact-form'),
   promptInput: document.getElementById('prompt-input'),
+  promptSubmit: document.getElementById('prompt-submit'),
   regionSelect: document.getElementById('region-select'),
   regionDescription: document.getElementById('region-description'),
   dailyVolume: document.getElementById('daily-volume'),
@@ -80,7 +87,8 @@ let globalPromptsTotal = 0;
 let globalWaterMlTotal = 0;
 let globalElectricityWhTotal = 0;
 let globalTokensTotal = 0;
-let hasScrolledToImpact = false;
+let hasSubmitted = false;
+let placeholderActive = true;
 
 function getWordCount(text) {
   return text.trim().split(/\s+/).filter(Boolean).length;
@@ -106,7 +114,7 @@ function computeMetrics() {
   const wordCount = getWordCount(text);
   const estimatedTokens = estimateTokens(wordCount);
 
-  const promptElectricityWh = estimatedTokens * E_BASE;
+  const promptElectricityWh = estimatedTokens * E_BASE * selectedRegion.electricityMultiplier;
   const promptWaterMl = estimatedTokens * W_BASE * selectedRegion.waterMultiplier;
   const promptCarbonG = estimatedTokens * C_BASE * selectedRegion.carbonMultiplier;
 
@@ -136,14 +144,31 @@ function computeMetrics() {
   elements.annualWaterLiters.textContent = formatNumber(annualWaterLiters, 2);
   elements.annualSedanMiles.textContent = formatNumber(sedanMiles, 1);
   elements.annualCarbonKg.textContent = formatNumber(annualCarbonKg, 2);
+}
 
-  // Auto-scroll on first input (if not already scrolled)
-  if (!hasScrolledToImpact && text.trim().length > 0) {
-    hasScrolledToImpact = true;
-    setTimeout(() => {
-      elements.annualImpactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
+function clearPlaceholderText() {
+  if (!placeholderActive) return;
+  placeholderActive = false;
+  elements.promptInput.value = '';
+  elements.promptInput.classList.remove('placeholder-active');
+}
+
+function handlePromptSubmit(event) {
+  if (event) event.preventDefault();
+  if (placeholderActive) {
+    clearPlaceholderText();
+    elements.promptInput.focus();
+    return;
   }
+
+  const text = elements.promptInput.value.trim();
+  if (!text) {
+    elements.promptInput.focus();
+    return;
+  }
+
+  hasSubmitted = true;
+  computeMetrics();
 }
 
 function updateGlobalDebtClock() {
@@ -175,23 +200,37 @@ function initializeGlobalDebtClock() {
 }
 
 function attachListeners() {
-  elements.promptInput.addEventListener('input', computeMetrics);
+  elements.promptInput.addEventListener('focus', clearPlaceholderText);
+  elements.promptInput.addEventListener('click', clearPlaceholderText);
+  elements.promptInput.addEventListener('input', () => {
+    if (!placeholderActive) computeMetrics();
+  });
+
+  elements.promptInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      handlePromptSubmit(event);
+    }
+  });
+
+  elements.promptSubmit.addEventListener('click', handlePromptSubmit);
+  elements.impactForm.addEventListener('submit', handlePromptSubmit);
+
   elements.regionSelect.addEventListener('change', (event) => {
     updateRegionDescription(event.target.value);
-    computeMetrics();
+    if (hasSubmitted) computeMetrics();
   });
+
   elements.dailyVolume.addEventListener('input', (event) => {
     const volume = event.target.value;
     elements.volumeValue.textContent = volume;
     elements.dailyVolume.setAttribute('aria-valuenow', volume);
-    computeMetrics();
+    if (hasSubmitted) computeMetrics();
   });
 }
 
 function init() {
   updateRegionDescription(elements.regionSelect.value);
   attachListeners();
-  computeMetrics();
   
   // Initialize and start global debt clock
   initializeGlobalDebtClock();
