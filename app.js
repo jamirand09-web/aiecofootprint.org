@@ -84,6 +84,7 @@ const elements = {
   globalCarbon: document.getElementById('global-carbon'),
   
   // Sections
+  microImpactSection: document.getElementById('micro-impact-section'),
   annualImpactSection: document.getElementById('annual-impact-section')
 };
 
@@ -93,7 +94,6 @@ let globalElectricityWhTotal = 0;
 let globalCarbonKgTotal = 0;
 let globalTokensTotal = 0;
 let hasSubmitted = false;
-let placeholderActive = true;
 
 function getWordCount(text) {
   return text.trim().split(/\s+/).filter(Boolean).length;
@@ -159,25 +159,12 @@ function computeMetrics() {
 }
 
 function updateSubmitButtonVisibility() {
-  const hasText = !placeholderActive && elements.promptInput.value.trim().length > 0;
+  const hasText = elements.promptInput.value.trim().length > 0;
   elements.promptSubmit.classList.toggle('hidden', !hasText);
-}
-
-function clearPlaceholderText() {
-  if (!placeholderActive) return;
-  placeholderActive = false;
-  elements.promptInput.value = '';
-  elements.promptInput.classList.remove('placeholder-active');
-  updateSubmitButtonVisibility();
 }
 
 function handlePromptSubmit(event) {
   if (event) event.preventDefault();
-  if (placeholderActive) {
-    clearPlaceholderText();
-    elements.promptInput.focus();
-    return;
-  }
 
   const text = elements.promptInput.value.trim();
   if (!text) {
@@ -187,7 +174,8 @@ function handlePromptSubmit(event) {
 
   hasSubmitted = true;
   computeMetrics();
-  elements.annualImpactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  updateSubmitButtonVisibility();
+  elements.microImpactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function updateGlobalDebtClock() {
@@ -222,16 +210,17 @@ function initializeGlobalDebtClock() {
 }
 
 function attachListeners() {
-  elements.promptInput.addEventListener('focus', clearPlaceholderText);
-  elements.promptInput.addEventListener('click', clearPlaceholderText);
   elements.promptInput.addEventListener('input', () => {
-    if (placeholderActive) return;
     updateSubmitButtonVisibility();
-    computeMetrics();
+    if (hasSubmitted) {
+      computeMetrics();
+    }
   });
 
   elements.promptInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
+    const isEnter = event.key === 'Enter' || event.keyCode === 13;
+    if (isEnter && !event.shiftKey) {
+      event.preventDefault();
       handlePromptSubmit(event);
     }
   });
