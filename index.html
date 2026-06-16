@@ -113,7 +113,7 @@
   <div class="page-shell">
     <header class="page-header">
       <h1>Calculate the Environmental Cost of Your AI Prompt</h1>
-      <p class="hero-subtitle">Enter any prompt. See instant electricity, water, and carbon impact. Understand the real cost of AI.</p>
+      <p class="hero-subtitle">Enter any AI prompt and see instant electricity, water, and carbon impact.</p>
     </header>
 
     <section class="hero-section" id="hero-section">
@@ -149,9 +149,12 @@
             <label for="daily-volume">How often do you use AI?</label>
             <div class="slider-container">
               <input type="range" id="daily-volume" min="1" max="50" value="5" aria-valuemin="1" aria-valuemax="50" aria-valuenow="5">
-              <output id="volume-value">5</output>
-              <span class="slider-unit">/day</span>
+              <div class="slider-value">
+                <output id="volume-value">5</output>
+                <span class="slider-unit">prompts per day</span>
+              </div>
             </div>
+            <p class="setting-note">Estimate how many AI prompts you send per day to project annual impact.</p>
           </div>
         </div>
       </form>
@@ -355,6 +358,8 @@
           <p><em>Metrics standardized to metric and imperial analogies for worldwide accessibility.</em></p>
         </div>
       </section>
+
+      <hr class="section-separator" aria-hidden="true">
 
       <section class="debt-clock-section context-section" aria-labelledby="debt-clock-title">
         <h3 id="debt-clock-title">Global Real-Time Context</h3>

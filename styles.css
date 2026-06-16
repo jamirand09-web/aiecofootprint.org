@@ -40,6 +40,16 @@ html, body {
   line-height: 1.6;
   font-family: inherit;
   font-weight: 400;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: normal;
+  hyphens: auto;
+}
+
+h1, h2, h3, p, li, label, span, strong, button, textarea, output {
+  overflow-wrap: break-word;
+  word-break: normal;
+  white-space: normal;
 }
 
 body {
@@ -141,6 +151,31 @@ textarea.placeholder-active {
   box-shadow: 0 10px 22px rgba(61, 48, 40, 0.18);
   opacity: 1;
   transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.section-separator {
+  width: 100%;
+  border: none;
+  border-top: 1px solid rgba(189, 159, 128, 0.2);
+  margin: 3rem 0 1.5rem;
+}
+
+.slider-value {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.slider-unit {
+  font-size: 0.95rem;
+}
+
+.setting-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
 }
 
 .prompt-submit-button.hidden {
@@ -427,16 +462,25 @@ output {
 
 /* Debt Clock Section */
 .debt-clock-section {
-  margin-bottom: 3rem;
-  padding-bottom: 3rem;
-  border-bottom: 1px solid var(--border-color);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem 0 0;
+  border-top: 1px dashed var(--border-color);
+  background: rgba(232, 220, 200, 0.06);
+}
+
+.debt-clock-section h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  color: var(--cocoa);
+  font-weight: 600;
 }
 
 .debt-subtitle {
-  margin: 0.5rem 0 1.5rem;
+  margin: 0 0 1.25rem;
   font-size: 0.95rem;
   color: var(--text-secondary);
-  font-style: italic;
+  font-style: normal;
 }
 
 .debt-grid {
