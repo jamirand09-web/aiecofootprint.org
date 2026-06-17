@@ -55,7 +55,7 @@ body {
 .hero-billboard {
   position: relative;
   width: 100%;
-  height: 440px;
+  height: 340px;
   overflow: hidden;
 }
 
@@ -75,10 +75,12 @@ body {
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(251, 248, 243, 0.97) 0%,
-    rgba(251, 248, 243, 0.72) 30%,
-    rgba(251, 248, 243, 0.10) 60%,
-    transparent 80%
+    rgba(251, 248, 243, 0.98) 0%,
+    rgba(251, 248, 243, 0.90) 15%,
+    rgba(251, 248, 243, 0.65) 35%,
+    rgba(251, 248, 243, 0.25) 55%,
+    rgba(251, 248, 243, 0.05) 72%,
+    transparent 90%
   );
   pointer-events: none;
 }
@@ -669,7 +671,7 @@ output {
 /* Responsive */
 @media (max-width: 768px) {
   .hero-billboard {
-    height: 320px;
+    height: 240px;
   }
 
   .page-shell {
