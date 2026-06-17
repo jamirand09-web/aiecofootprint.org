@@ -149,11 +149,11 @@ function computeMetrics() {
   elements.promptCarbonG.textContent = formatNumber(promptCarbonG, 4);
 
   // Update annual impact display (emoji cards)
-  elements.annualIphoneCharges.textContent = formatNumber(iPhoneCharges, 1);
+  elements.annualIphoneCharges.textContent = formatNumber(iPhoneCharges, 2);
   elements.annualElectricityKwh.textContent = formatNumber(annualElectricityKwh, 2);
-  elements.annualWaterBottles.textContent = formatNumber(annualWaterBottles, 1);
+  elements.annualWaterBottles.textContent = formatNumber(annualWaterBottles, 2);
   elements.annualWaterLiters.textContent = formatNumber(annualWaterLiters, 2);
-  elements.annualSedanMiles.textContent = formatNumber(sedanMiles, 1);
+  elements.annualSedanMiles.textContent = formatNumber(sedanMiles, 2);
   elements.annualCarbonKg.textContent = formatNumber(annualCarbonKg, 2);
 }
 
