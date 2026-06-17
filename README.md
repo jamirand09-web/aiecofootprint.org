@@ -4,9 +4,13 @@ Static single-page dashboard for `aiecofootprint.org`, built to visualize the en
 
 ## Project structure
 
-- `index.html` — single-page semantic layout, Open Graph metadata, JSON-LD (WebApplication + FAQPage + citation schema), and SEO tags.
-- `styles.css` — responsive styling using a warm neutral palette; no external dependencies.
+- `index.html` — single-page semantic layout; inlines all CSS in a `<style>` block for zero render-blocking requests; Open Graph metadata, JSON-LD (WebApplication + FAQPage + citation schema), and SEO tags.
+- `styles.css` — CSS source of record (warm neutral palette, responsive). Not linked directly; contents are inlined into `index.html` at build time.
 - `app.js` — client-side compute engine: token estimator, regional multipliers, impact calculations, and a 250ms global debt clock that pauses when the tab is backgrounded.
+- `hero-banner.avif` — full-size hero image (1200×630) served to desktop browsers via `<picture>`.
+- `hero-banner-mobile.avif` — mobile-optimised hero image (914×480) served at ≤768 px viewports via `<picture>`.
+- `hero-banner.png` — original PNG hero image; fallback for browsers without AVIF support.
+- `og-preview.png` — 1200×630 Open Graph social-share image with text overlay; used only in `<meta property="og:image">`.
 - `vercel.json` — static hosting config with HTTP security headers (CSP, X-Frame-Options, Referrer-Policy, Permissions-Policy).
 - `robots.txt` — crawl rules; explicitly allows GPTBot, ClaudeBot, anthropic-ai, Google-Extended, and PerplexityBot.
 - `sitemap.xml` — single-URL sitemap referenced by robots.txt.
