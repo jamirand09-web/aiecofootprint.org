@@ -27,11 +27,6 @@ html {
   scroll-behavior: smooth;
 }
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-}
-
 html, body {
   margin: 0;
   min-height: 100vh;
@@ -674,7 +669,3 @@ output {
   }
 }
 
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
-}

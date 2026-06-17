@@ -1,7 +1,6 @@
 const E_BASE = 0.00045;
 const W_BASE = 0.004;
 const C_BASE = 0.0002;
-const M_DROPS = 20.0;
 const M_BOTTLE = 500.0;
 
 // New equivalency baselines
@@ -178,8 +177,10 @@ function handlePromptSubmit(event) {
   elements.microImpactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+const TICK_MS = 250;
+
 function updateGlobalDebtClock() {
-  const promptsThisTick = GLOBAL_PROMPTS_PER_SECOND * 0.1; // 100ms tick
+  const promptsThisTick = GLOBAL_PROMPTS_PER_SECOND * (TICK_MS / 1000);
   const tokenCount = promptsThisTick * GLOBAL_TOKENS_PER_PROMPT;
   globalPromptsTotal += promptsThisTick;
   globalTokensTotal += tokenCount;
@@ -241,14 +242,30 @@ function attachListeners() {
   });
 }
 
+let clockInterval = null;
+
+function startClock() {
+  if (!clockInterval) {
+    clockInterval = setInterval(updateGlobalDebtClock, TICK_MS);
+  }
+}
+
+function stopClock() {
+  clearInterval(clockInterval);
+  clockInterval = null;
+}
+
 function init() {
   updateRegionDescription(elements.regionSelect.value);
   attachListeners();
   updateSubmitButtonVisibility();
-  
-  // Initialize and start global debt clock
+
   initializeGlobalDebtClock();
-  setInterval(updateGlobalDebtClock, 100);
+  startClock();
+
+  document.addEventListener('visibilitychange', () => {
+    document.hidden ? stopClock() : startClock();
+  });
 }
 
 init();

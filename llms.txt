@@ -1,0 +1,51 @@
+# AI Eco Footprint
+
+> A free, client-side web calculator that estimates the environmental cost of any AI prompt — electricity usage, water consumption, and CO₂ emissions — using peer-reviewed per-token baselines and regional grid multipliers. No account or data collection.
+
+## What this tool does
+
+The calculator accepts any AI prompt as text input, estimates its token count (words × 1.33), and multiplies by three research-validated baselines to produce single-prompt impact and annualised projections. A secondary live counter shows aggregate global AI resource use, seeded to the current time of day, updated every 250 ms.
+
+### Environmental baselines (per token)
+
+- **Electricity:** 0.00045 Wh — source: Luccioni, Jernite & Strubell 2023 (arXiv:2311.16863)
+- **Water:** 0.004 mL — source: Li, Yang, Islam & Ren 2023 (arXiv:2304.03271)
+- **Carbon:** 0.0002 g CO₂e — source: International Energy Agency (IEA), Data Centres & Energy and AI reports
+
+### Regional multipliers
+
+Results are adjusted by a user-selected compute region:
+
+| Region | Electricity | Water | Carbon |
+|---|---|---|---|
+| Global Grid Average (default) | 1.00× | 1.00× | 1.00× |
+| US East — Northern Virginia | 1.25× | 1.20× | 1.25× |
+| US West — Oregon | 0.50× | 0.80× | 0.50× |
+| Europe — France (nuclear-dominant) | 0.15× | 1.10× | 0.15× |
+| Europe — Ireland (wind + gas) | 0.85× | 0.90× | 0.85× |
+
+### Human-scale equivalents
+
+- Electricity → iPhone 17 full charges (14.5 Wh per charge)
+- Water → standard 500 mL water bottles
+- Carbon → miles driven in a gasoline sedan (~200 g CO₂e per mile)
+
+### Scope and caveats
+
+Values are order-of-magnitude estimates using averaged peer-reviewed baselines. Actual impact varies with model architecture, server utilisation, workload scheduling, and data center cooling configuration. These results are not a certified measurement tool.
+
+## Key pages
+
+- [Calculator](https://www.aiecofootprint.org/): Main interactive tool — prompt input, regional multiplier selector, daily usage slider, impact cards, and global debt clock.
+
+## Research sources
+
+- [Luccioni, Jernite & Strubell 2023 — Power Hungry Processing (arXiv:2311.16863)](https://arxiv.org/abs/2311.16863): Peer-reviewed electricity per-token baseline, published via Hugging Face & ACM FAccT.
+- [Li, Yang, Islam & Ren 2023 — Making AI Less Thirsty (arXiv:2304.03271)](https://arxiv.org/abs/2304.03271): Peer-reviewed water per-token baseline, University of California, Riverside / Communications of the ACM.
+- [IEA — Data Centres and Data Transmission Networks](https://www.iea.org/energy-system/buildings/data-centres-and-data-transmission-networks): Carbon and grid intensity baseline.
+- [IEA — Energy and AI (2024)](https://www.iea.org/reports/energy-and-ai): Carbon and grid intensity baseline.
+
+## Optional
+
+- [README / Methodology & Contributing](https://github.com/jamirand09-web/aiecofootprint.org/blob/main/README.md): Detailed assumptions, regional multiplier rationale, and how to contribute more granular data.
+- [GitHub Issues](https://github.com/jamirand09-web/aiecofootprint.org/issues): Open an issue to suggest refined baselines or regional data.
