@@ -66,7 +66,37 @@
       "@type": "Organization",
       "name": "AI Eco Footprint"
     },
-    "inLanguage": "en-US"
+    "inLanguage": "en-US",
+    "citation": [
+      {
+        "@type": "ScholarlyArticle",
+        "name": "Power Hungry Processing: Watts Driving the Cost of AI Deployment?",
+        "author": ["Alexandra Sasha Luccioni", "Yacine Jernite", "Emma Strubell"],
+        "datePublished": "2023",
+        "url": "https://arxiv.org/abs/2311.16863",
+        "publisher": { "@type": "Organization", "name": "ACM FAccT / Hugging Face" }
+      },
+      {
+        "@type": "ScholarlyArticle",
+        "name": "Making AI Less \"Thirsty\": Uncovering and Addressing the Secret Water Footprint of AI Models",
+        "author": ["Pengfei Li", "Jianyi Yang", "Mohammad A. Islam", "Shaolei Ren"],
+        "datePublished": "2023",
+        "url": "https://arxiv.org/abs/2304.03271",
+        "publisher": { "@type": "Organization", "name": "University of California, Riverside / Communications of the ACM" }
+      },
+      {
+        "@type": "Report",
+        "name": "Data Centres and Data Transmission Networks",
+        "url": "https://www.iea.org/energy-system/buildings/data-centres-and-data-transmission-networks",
+        "publisher": { "@type": "Organization", "name": "International Energy Agency (IEA)" }
+      },
+      {
+        "@type": "Report",
+        "name": "Energy and AI",
+        "url": "https://www.iea.org/reports/energy-and-ai",
+        "publisher": { "@type": "Organization", "name": "International Energy Agency (IEA)" }
+      }
+    ]
   }
   </script>
 
@@ -264,17 +294,20 @@
               <tr>
                 <td>Electricity</td>
                 <td>0.00045 Wh</td>
-                <td><a href="https://www.epochai.org/research" target="_blank" rel="noopener noreferrer">Epoch AI Research</a></td>
+                <td><a href="https://arxiv.org/abs/2311.16863" target="_blank" rel="noopener noreferrer">Luccioni, Jernite &amp; Strubell, 2023 — <em>Power Hungry Processing</em> (arXiv:2311.16863)</a></td>
               </tr>
               <tr>
                 <td>Water</td>
                 <td>0.004 mL</td>
-                <td><a href="https://www.eecs.ucr.edu" target="_blank" rel="noopener noreferrer">Dr. Shaolei Ren, UC Riverside</a></td>
+                <td><a href="https://arxiv.org/abs/2304.03271" target="_blank" rel="noopener noreferrer">Li, Yang, Islam &amp; Ren, 2023 — <em>Making AI Less "Thirsty"</em> (arXiv:2304.03271)</a></td>
               </tr>
               <tr>
                 <td>Carbon</td>
                 <td>0.0002 g CO₂e</td>
-                <td><a href="https://www.iea.org" target="_blank" rel="noopener noreferrer">IEA Grid Carbon Intensity</a></td>
+                <td>
+                  <a href="https://www.iea.org/energy-system/buildings/data-centres-and-data-transmission-networks" target="_blank" rel="noopener noreferrer">IEA — Data Centres &amp; Data Transmission Networks</a><br>
+                  <a href="https://www.iea.org/reports/energy-and-ai" target="_blank" rel="noopener noreferrer">IEA — Energy and AI</a>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -356,8 +389,15 @@
           </table>
         </div>
 
-        <div class="reference-note">
-          <p><em>Metrics standardized to metric and imperial analogies for worldwide accessibility.</em></p>
+        <div class="methodology-disclaimer">
+          <h3>Methodology Notes</h3>
+          <p>This calculator uses averaged peer-reviewed baselines and regional grid profiles. Actual prompt impact depends on model architecture, server utilization, and local data center practices.</p>
+          <ul>
+            <li>Values are standardized per token and use averaged regional multipliers rather than live telemetry.</li>
+            <li>Water estimates reflect blended direct and upstream effects, not a single facility’s cooling system.</li>
+            <li>These results are intended as an order-of-magnitude estimate and conversation starter, not a precise carbon ledger.</li>
+          </ul>
+          <p>If you have more granular infrastructure data or model-specific benchmarks, <a href="https://github.com/jamirand09-web/aiecofootprint.org/issues" target="_blank" rel="noopener noreferrer">open an issue on GitHub</a> to help refine the model.</p>
         </div>
       </section>
 

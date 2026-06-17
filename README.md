@@ -46,4 +46,17 @@ Then open `http://localhost:8000`.
 
 - This project is intentionally client-side only.
 - The dashboard uses a strict math model and region-specific multipliers for electricity, water, and carbon values.
+- The calculations use averaged baselines and regional grid profiles rather than live data center telemetry.
+- Results are intended as order-of-magnitude estimates and educational context, not a certified measurement tool.
 - The page is optimized for Vercel static hosting and simple SEO discovery.
+
+## Assumptions & Scope
+
+- Electricity, water, and carbon estimates are based on peer-reviewed per-token baselines and public grid intensity data.
+- Actual environmental impact varies with model architecture, server utilization, workload scheduling, and specific data center cooling systems.
+- Regional multipliers are averages for the selected region, not real-time carbon or water telemetry.
+- Water values represent blended direct and upstream effects and may not match a single facility’s closed-loop cooling configuration.
+
+## Contributing
+
+If you are an infrastructure researcher or operator with more granular data, please open an issue at <https://github.com/jamirand09-web/aiecofootprint.org/issues> so we can refine the assumptions and multipliers.

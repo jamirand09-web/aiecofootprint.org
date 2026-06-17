@@ -325,6 +325,38 @@ output {
   white-space: nowrap;
 }
 
+.methodology-disclaimer {
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  background: rgba(245, 241, 235, 0.9);
+  border: 1px solid rgba(189, 159, 128, 0.25);
+  border-radius: 16px;
+}
+
+.methodology-disclaimer h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+  color: var(--cocoa);
+}
+
+.methodology-disclaimer p,
+.methodology-disclaimer li {
+  margin: 0 0 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.methodology-disclaimer ul {
+  margin: 0 0 0.75rem 1.25rem;
+  padding: 0;
+}
+
+.methodology-disclaimer a {
+  color: var(--muted-blue);
+  text-decoration: underline;
+}
+
 /* Annual Impact Section */
 .annual-impact-section {
   margin-bottom: 3rem;
@@ -574,6 +606,21 @@ output {
 
 .reference-list a:hover {
   text-decoration: underline;
+}
+
+.reference-table a {
+  color: var(--muted-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.reference-table a:hover {
+  text-decoration: underline;
+}
+
+.reference-table td a + br + a {
+  margin-top: 0.25rem;
+  display: inline-block;
 }
 
 .reference-note {
