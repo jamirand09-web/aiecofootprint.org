@@ -52,14 +52,16 @@ body {
   flex-direction: column;
 }
 
-.hero-banner {
+.hero-billboard {
   position: relative;
   width: 100%;
-  height: 300px;
+  height: 440px;
   overflow: hidden;
 }
 
-.hero-banner img {
+.hero-billboard img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -67,30 +69,37 @@ body {
   display: block;
 }
 
-.hero-banner::after {
+.hero-billboard::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 140px;
-  background: linear-gradient(to bottom, transparent 0%, #FBF8F3 100%);
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(251, 248, 243, 0.97) 0%,
+    rgba(251, 248, 243, 0.72) 30%,
+    rgba(251, 248, 243, 0.10) 60%,
+    transparent 80%
+  );
   pointer-events: none;
+}
+
+.hero-billboard-text {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1000px, calc(100% - 2rem));
+  padding: 0 0 2rem;
+  z-index: 1;
+  display: grid;
+  gap: 0.75rem;
 }
 
 .page-shell {
   width: min(1000px, calc(100% - 2rem));
   margin: 0 auto;
-  padding: 1.5rem 0 2rem;
+  padding: 2.5rem 0 2rem;
   flex: 1;
-}
-
-.page-header {
-  display: grid;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 2px solid var(--border-color);
 }
 
 h1 {
@@ -659,8 +668,8 @@ output {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .hero-banner {
-    height: 200px;
+  .hero-billboard {
+    height: 320px;
   }
 
   .page-shell {
