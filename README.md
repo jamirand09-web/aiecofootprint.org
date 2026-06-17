@@ -4,9 +4,13 @@ Static single-page dashboard for `aiecofootprint.org`, built to visualize the en
 
 ## Project structure
 
-- `index.html` — single-page semantic dashboard layout, metadata, JSON-LD, and global deployment SEO tags.
-- `styles.css` — responsive dark-mode dashboard styling with split-grid layout.
-- `app.js` — client-side compute engine, token estimator, regional multipliers, and 100ms global debt clock.
+- `index.html` — single-page semantic layout, Open Graph metadata, JSON-LD (WebApplication + FAQPage + citation schema), and SEO tags.
+- `styles.css` — responsive styling using a warm neutral palette; no external dependencies.
+- `app.js` — client-side compute engine: token estimator, regional multipliers, impact calculations, and a 250ms global debt clock that pauses when the tab is backgrounded.
+- `vercel.json` — static hosting config with HTTP security headers (CSP, X-Frame-Options, Referrer-Policy, Permissions-Policy).
+- `robots.txt` — crawl rules; explicitly allows GPTBot, ClaudeBot, anthropic-ai, Google-Extended, and PerplexityBot.
+- `sitemap.xml` — single-URL sitemap referenced by robots.txt.
+- `llms.txt` — GEO/LLM discoverability file following the llmstxt.org spec; describes the tool, baselines, and research sources for AI search engines.
 
 ## Local preview
 
