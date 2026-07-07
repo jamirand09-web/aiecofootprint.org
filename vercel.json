@@ -1,4 +1,12 @@
 {
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "aiecofootprint.org" }],
+      "destination": "https://www.aiecofootprint.org/$1",
+      "permanent": true
+    }
+  ],
   "cleanUrls": true,
   "rewrites": [{ "source": "/", "destination": "/index.html" }],
   "headers": [
