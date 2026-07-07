@@ -50,10 +50,141 @@ const regions = {
   }
 };
 
+const models = {
+  generic: {
+    label: 'Generic / Unknown',
+    electricityMultiplier: 1.0,
+    waterMultiplier: 1.0,
+    carbonMultiplier: 1.0,
+    description: 'Averaged baseline across model classes (Luccioni et al., 2023).'
+  },
+  // OpenAI
+  'gpt-4o': {
+    label: 'GPT-4o',
+    electricityMultiplier: 1.5,
+    waterMultiplier: 1.5,
+    carbonMultiplier: 1.5,
+    description: 'OpenAI flagship multimodal model. Dense architecture; estimated ~1.5× baseline.'
+  },
+  'gpt-4o-mini': {
+    label: 'GPT-4o mini',
+    electricityMultiplier: 0.25,
+    waterMultiplier: 0.25,
+    carbonMultiplier: 0.25,
+    description: 'Lightweight OpenAI model optimised for speed and lower-cost tasks.'
+  },
+  'o1': {
+    label: 'o1 (reasoning)',
+    electricityMultiplier: 6.0,
+    waterMultiplier: 6.0,
+    carbonMultiplier: 6.0,
+    description: 'Extended chain-of-thought reasoning generates thousands of internal tokens per response.'
+  },
+  'o3': {
+    label: 'o3 (reasoning)',
+    electricityMultiplier: 20.0,
+    waterMultiplier: 20.0,
+    carbonMultiplier: 20.0,
+    description: 'Most intensive reasoning model. Internal "thinking" can span tens of thousands of tokens.'
+  },
+  // Anthropic
+  'claude-opus-4': {
+    label: 'Claude Opus 4',
+    electricityMultiplier: 2.0,
+    waterMultiplier: 2.0,
+    carbonMultiplier: 2.0,
+    description: 'Anthropic\'s most capable model. Larger architecture for complex, multi-step tasks.'
+  },
+  'claude-sonnet-4': {
+    label: 'Claude Sonnet 4',
+    electricityMultiplier: 1.0,
+    waterMultiplier: 1.0,
+    carbonMultiplier: 1.0,
+    description: 'Anthropic\'s balanced performance model. Used as our baseline reference point.'
+  },
+  'claude-haiku-4': {
+    label: 'Claude Haiku 4',
+    electricityMultiplier: 0.15,
+    waterMultiplier: 0.15,
+    carbonMultiplier: 0.15,
+    description: 'Fastest and most efficient Anthropic model. Minimal compute and energy footprint.'
+  },
+  // Google
+  'gemini-2-5-pro': {
+    label: 'Gemini 2.5 Pro',
+    electricityMultiplier: 1.3,
+    waterMultiplier: 1.3,
+    carbonMultiplier: 1.3,
+    description: 'Google flagship. Google published ~0.24 Wh/avg query vs. ~0.34 Wh for GPT-4 class.'
+  },
+  'gemini-2-0-flash': {
+    label: 'Gemini 2.0 Flash',
+    electricityMultiplier: 0.2,
+    waterMultiplier: 0.2,
+    carbonMultiplier: 0.2,
+    description: 'Google\'s speed-optimised model. Low latency and minimal energy overhead.'
+  },
+  // Meta
+  'llama-3-3-70b': {
+    label: 'Llama 3.3 70B',
+    electricityMultiplier: 0.9,
+    waterMultiplier: 0.9,
+    carbonMultiplier: 0.9,
+    description: 'Meta\'s open-source 70B model. Actual impact varies by hosting provider and hardware.'
+  },
+  'llama-3-2-3b': {
+    label: 'Llama 3.2 3B',
+    electricityMultiplier: 0.05,
+    waterMultiplier: 0.05,
+    carbonMultiplier: 0.05,
+    description: 'Meta\'s lightweight edge model, designed for on-device or local deployment.'
+  },
+  // Mistral AI
+  'mistral-large': {
+    label: 'Mistral Large 2',
+    electricityMultiplier: 1.2,
+    waterMultiplier: 1.2,
+    carbonMultiplier: 1.2,
+    description: 'Mistral\'s ~123B parameter dense model from this European AI lab.'
+  },
+  'mistral-7b': {
+    label: 'Mistral 7B',
+    electricityMultiplier: 0.08,
+    waterMultiplier: 0.08,
+    carbonMultiplier: 0.08,
+    description: 'Highly efficient 7B open-source model. Very low compute footprint per token.'
+  },
+  // DeepSeek
+  'deepseek-r1': {
+    label: 'DeepSeek R1',
+    electricityMultiplier: 0.9,
+    waterMultiplier: 0.9,
+    carbonMultiplier: 0.9,
+    description: 'Reasoning model with sparse MoE — only ~37B active of 671B total parameters.'
+  },
+  'deepseek-v3': {
+    label: 'DeepSeek V3',
+    electricityMultiplier: 0.6,
+    waterMultiplier: 0.6,
+    carbonMultiplier: 0.6,
+    description: 'Dense MoE architecture from DeepSeek. Efficient relative to its capability class.'
+  },
+  // xAI
+  'grok-3': {
+    label: 'Grok 3',
+    electricityMultiplier: 2.0,
+    waterMultiplier: 2.0,
+    carbonMultiplier: 2.0,
+    description: 'xAI\'s flagship model. Large-scale architecture trained on the Colossus cluster.'
+  }
+};
+
 const elements = {
   impactForm: document.getElementById('impact-form'),
   promptInput: document.getElementById('prompt-input'),
   promptSubmit: document.getElementById('prompt-submit'),
+  modelSelect: document.getElementById('model-select'),
+  modelDescription: document.getElementById('model-description'),
   regionSelect: document.getElementById('region-select'),
   regionDescription: document.getElementById('region-description'),
   dailyVolume: document.getElementById('daily-volume'),
@@ -106,6 +237,11 @@ function formatNumber(value, digits = 2) {
   return value.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits });
 }
 
+function updateModelDescription(modelKey) {
+  const model = models[modelKey];
+  elements.modelDescription.textContent = model.description;
+}
+
 function updateRegionDescription(regionKey) {
   const region = regions[regionKey];
   elements.regionDescription.textContent = region.description;
@@ -113,14 +249,15 @@ function updateRegionDescription(regionKey) {
 
 function computeMetrics() {
   const text = elements.promptInput.value;
+  const selectedModel = models[elements.modelSelect.value];
   const selectedRegion = regions[elements.regionSelect.value];
   const dailyVolume = Number(elements.dailyVolume.value);
   const wordCount = getWordCount(text);
   const estimatedTokens = estimateTokens(wordCount);
 
-  const promptElectricityWh = estimatedTokens * E_BASE * selectedRegion.electricityMultiplier;
-  const promptWaterMl = estimatedTokens * W_BASE * selectedRegion.waterMultiplier;
-  const promptCarbonG = estimatedTokens * C_BASE * selectedRegion.carbonMultiplier;
+  const promptElectricityWh = estimatedTokens * E_BASE * selectedModel.electricityMultiplier * selectedRegion.electricityMultiplier;
+  const promptWaterMl = estimatedTokens * W_BASE * selectedModel.waterMultiplier * selectedRegion.waterMultiplier;
+  const promptCarbonG = estimatedTokens * C_BASE * selectedModel.carbonMultiplier * selectedRegion.carbonMultiplier;
 
   // Annual calculations
   const annualElectricityWh = promptElectricityWh * dailyVolume * 365;
@@ -229,6 +366,11 @@ function attachListeners() {
   elements.promptSubmit.addEventListener('click', handlePromptSubmit);
   elements.impactForm.addEventListener('submit', handlePromptSubmit);
 
+  elements.modelSelect.addEventListener('change', (event) => {
+    updateModelDescription(event.target.value);
+    if (hasSubmitted) computeMetrics();
+  });
+
   elements.regionSelect.addEventListener('change', (event) => {
     updateRegionDescription(event.target.value);
     if (hasSubmitted) computeMetrics();
@@ -256,6 +398,7 @@ function stopClock() {
 }
 
 function init() {
+  updateModelDescription(elements.modelSelect.value);
   updateRegionDescription(elements.regionSelect.value);
   attachListeners();
   updateSubmitButtonVisibility();
