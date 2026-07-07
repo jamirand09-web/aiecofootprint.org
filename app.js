@@ -47,6 +47,34 @@ const regions = {
     carbonMultiplier: 0.85,
     waterMultiplier: 0.90,
     description: 'Variable grid dynamically balancing wind fields with gas assets.'
+  },
+  'canada': {
+    label: 'Canada',
+    electricityMultiplier: 0.25,
+    carbonMultiplier: 0.25,
+    waterMultiplier: 0.65,
+    description: 'Predominantly hydro and nuclear grid. Among the cleanest major data center regions globally.'
+  },
+  'australia': {
+    label: 'Australia / New Zealand',
+    electricityMultiplier: 1.15,
+    carbonMultiplier: 1.15,
+    waterMultiplier: 1.35,
+    description: 'Coal-heavy eastern grid. High regional water scarcity elevates cooling impact.'
+  },
+  'asia-pacific': {
+    label: 'Asia-Pacific (China / SE Asia)',
+    electricityMultiplier: 1.20,
+    carbonMultiplier: 1.20,
+    waterMultiplier: 1.10,
+    description: 'Coal and gas-dominant grid across the region. Data center growth driven by China, Singapore, and Japan.'
+  },
+  'india': {
+    label: 'India',
+    electricityMultiplier: 1.60,
+    carbonMultiplier: 1.60,
+    waterMultiplier: 1.50,
+    description: 'Coal-dominant grid (~70%). High water stress across major data center corridors.'
   }
 };
 

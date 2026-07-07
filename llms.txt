@@ -1,6 +1,6 @@
 # AI Eco Footprint
 
-> A free, client-side web calculator that estimates the environmental cost of any AI prompt — electricity usage, water consumption, and CO₂ emissions — using peer-reviewed per-token baselines and regional grid multipliers. No account or data collection.
+> A free, client-side web calculator that estimates the environmental cost of any AI prompt — electricity usage, water consumption, and CO₂ emissions — using peer-reviewed per-token baselines, model-specific multipliers for 17 popular AI models, and regional grid multipliers across 9 global regions. No account or data collection.
 
 ## What this tool does
 
@@ -23,6 +23,10 @@ Results are adjusted by a user-selected compute region:
 | US West — Oregon | 0.50× | 0.80× | 0.50× |
 | Europe — France (nuclear-dominant) | 0.15× | 1.10× | 0.15× |
 | Europe — Ireland (wind + gas) | 0.85× | 0.90× | 0.85× |
+| Canada (hydro + nuclear) | 0.25× | 0.65× | 0.25× |
+| Asia-Pacific — China / SE Asia | 1.20× | 1.10× | 1.20× |
+| Australia / New Zealand | 1.15× | 1.35× | 1.15× |
+| India (coal-dominant) | 1.60× | 1.50× | 1.60× |
 
 ### Human-scale equivalents
 
